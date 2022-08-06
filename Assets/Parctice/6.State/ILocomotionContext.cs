@@ -18,7 +18,7 @@ namespace Locomotion
     public interface ILocomotionContext
     {
         void SetState(ILocomotionState newState);
-        void PlayAnimation(ELocomotionType locomotionType);
+        T GetComponent<T>() where T : StateComponent;
     }
 
     public interface ILocomotionState
@@ -42,7 +42,7 @@ namespace Locomotion
     {
         public override void EnterState(ILocomotionContext context)
         {
-            context.PlayAnimation(ELocomotionType.Idle);
+            context.GetComponent<AnimatorComponent>().PlayAnimation(ELocomotionType.Idle);
         }
         public override void UpdateState(ILocomotionContext context)
         {
@@ -63,7 +63,7 @@ namespace Locomotion
     {
         public override void EnterState(ILocomotionContext context)
         {
-            context.PlayAnimation(ELocomotionType.Walk);
+            context.GetComponent<AnimatorComponent>().PlayAnimation(ELocomotionType.Walk);
         }
         public override void UpdateState(ILocomotionContext context)
         {
@@ -86,7 +86,7 @@ namespace Locomotion
         public override void EnterState(ILocomotionContext context)
         {
             m_Jumping = 0;
-            context.PlayAnimation(ELocomotionType.Jump);
+            context.GetComponent<AnimatorComponent>().PlayAnimation(ELocomotionType.Jump);
         }
         public override void UpdateState(ILocomotionContext context)
         {
